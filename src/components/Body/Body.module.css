@@ -56,4 +56,9 @@
     width: 20px;
   }
 
- 
+  .main {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+   width: 100%;
+  }

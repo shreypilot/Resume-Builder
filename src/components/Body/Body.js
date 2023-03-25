@@ -1,6 +1,8 @@
-import React, { useRef, useState } from "react";
-import { ArrowDown } from "react-feather"; 
+import React,{useRef,useState } from "react";
+import { ArrowDown } from "react-feather";
+
 import Editor from "../Editor/Editor";
+import Resume from "../Resume/Resume";
 import styles from "./Body.module.css";
 
 function Body() {
@@ -15,6 +17,7 @@ function Body() {
     other: "Other",
   };
 
+  const [activeColor, setActiveColor] = useState(colors[0]);
   const [resumeInformation, setResumeInformation] = useState({
     [sections.basicInfo]: {
       id: sections.basicInfo,
@@ -52,6 +55,7 @@ function Body() {
       detail: "",
     },
   });
+
   return (
     <div className={styles.container}>
       <p className={styles.heading}>Resume Builder</p>
@@ -61,19 +65,26 @@ function Body() {
             <span
               key={item}
               style={{ backgroundColor: item }}
-              className={styles.color}
+              className={`${styles.color} ${
+                activeColor === item ? styles.active : ""
+              }`}
+              onClick={() => setActiveColor(item)}
             />
           ))}
         </div>
-        
-          <button>Download <ArrowDown /> </button>
+         
+              <button>
+                Download <ArrowDown />
+              </button>
       </div>
       <div className={styles.main}>
         <Editor
           sections={sections}
           information={resumeInformation}
+          setInformation={setResumeInformation}
         />
-        </div>   
+        <Resume />
+      </div>
     </div>
   );
 }
